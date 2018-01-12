@@ -1,4 +1,4 @@
-package com.silentkid.practice;
+package com.silentkid.practice.recursive;
 
 public class Fibonacci {
 	int nth;

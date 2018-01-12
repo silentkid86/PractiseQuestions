@@ -1,4 +1,4 @@
-package com.silentkid.practice;
+package com.silentkid.practice.recursive;
 
 public class BST_v2 {
 	

@@ -5,12 +5,11 @@ public class MergeSort {
 
 	public static void main(String[] argx){
 		int[] arr={ 1, 5,2,9,3,6,7,0 };
-		
-		
+
 		mergeSort(arr,0,arr.length-1);
 		
 		for(int i : arr){
-			System.out.print(i);
+			System.out.print(i + ",");
 		}
 	}
 
@@ -27,39 +26,45 @@ public class MergeSort {
 		
 	}
 
-	private static void merge( int[] arr, int low, int high,
-			int middle) {
-		
-		int[] helperArr= new int[arr.length];
-		
-		for(int i=low; i<= high ; i++)
-			helperArr[i] = arr[i];
-		
-		int leftC = low;
-		int rightC = middle + 1;
-		int current = low;
-		
-		while(leftC <= middle && rightC <= high){
-			if(helperArr[leftC] > helperArr[rightC]){
-				arr[current] = helperArr[rightC];
-				rightC++;
-			}else{
-				arr[current] = helperArr[leftC];
+	private static void merge( int[] arr, int l,int h, int m) {
+
+		int leftSize = m - l + 1;
+		int rightSize = h + 1 - (m + 1);  // h - m
+
+		int[] left = new int[leftSize];
+		int[] right = new int[rightSize];
+
+		for(int f = 0; f < leftSize ; f++){
+			left[f] = arr[l + f];
+		}
+		for(int f=0;f < rightSize; f++){
+			right[f] = arr[m + 1 + f];
+		}
+
+		int current = l;
+		int leftC = 0;
+		int rightC = 0;
+		while(leftC < leftSize && rightC < rightSize){
+			if(left[leftC] <= right[rightC]){
+				arr[current] = left[leftC];
 				leftC++;
+			}else{
+				arr[current] = right[rightC];
+				rightC++;
 			}
 			current++;
 		}
-		
-		int remaining = middle - leftC;
-		
-		for(int i = 0 ; i <=remaining; i++){
-			arr[current + i] = helperArr[leftC + i];
+
+		while(leftC < leftSize){
+			arr[current] = left[leftC];
+			current++;
+			leftC++;
 		}
-		
-//		for(int i : helperArr){
-//			System.out.print(i);
-//		}
-//		System.out.println("");
+		while(rightC < rightSize){
+			arr[current] = right[rightC];
+			current++;
+			rightC++;
+		}
 		
 	}
 

@@ -1,6 +1,6 @@
 package com.silentkid.practice.ttd;
 
-import java.util.LinkedList;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
@@ -43,7 +43,52 @@ public class BishopMove {
         }
     }
 
-    public static void main(String[] argx){
+    public static boolean[] stopDirection = new boolean[]{false,false,false,false};
+    public static void generateMove1(int posX , int posY ){
+        List<Integer[]> coordinates = new LinkedList<>();
+
+        for(int dir = 0 ; dir < stopDirection.length ; dir++){
+            dfs(new Integer[]{posX,posY},dir,coordinates);
+        }
+
+
+
 
     }
+
+    private static void dfs(Integer[] pos, int dir,Collection<Integer[]> res) {
+
+        if(pos == null || pos[0] >= 32 || pos[1] >= 32 || pos[0] < 0 || pos[1] < 0){
+            stopDirection[dir] = true;
+            return;
+        }
+
+        if(chess[pos[0]][pos[1]] == 2){
+            //enemy
+            res.add(pos);
+            stopDirection[dir] = true;
+            return;
+        }else if(chess[pos[0]][pos[1]] == 1){
+            //friend
+            stopDirection[dir] = true;
+            return;
+        }else{
+            res.add(pos);
+            dfs(getNextNode(pos,dir),dir,res);
+        }
+
+    }
+
+
+    private static Integer[] getNextNode(Integer[] node, int direction) {
+        int[] deltaRow = new int[]{1,1,-1,-1};
+        int[] deltaCol = new int[]{-1,1,-1,1};
+
+        if(!stopDirection[direction]){
+            return new Integer[]{node[0] + deltaRow[direction],node[1] + deltaCol[direction]};
+        }
+
+        return null;
+    }
+
 }

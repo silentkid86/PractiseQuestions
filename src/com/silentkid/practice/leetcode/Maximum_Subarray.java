@@ -1,7 +1,8 @@
 package com.silentkid.practice.leetcode;
 
-import java.util.List;
-
+/*
+https://leetcode.com/problems/maximum-subarray/
+ */
 public class Maximum_Subarray {
 
     public static int maxSubArray(int[] nums) {
@@ -12,11 +13,14 @@ public class Maximum_Subarray {
         int max = nums[0];
         int sum = nums[0];
 
+        //Kadane Algorithm
         for(int i = 1 ; i < nums.length ; i++){
-            // subarray
+            //decide based on if adding this number improves the total
             if(sum + nums[i] > nums[i]){
+                //continue sequence
                 sum += nums[i];
             }else{
+                //init a new sequence
                 sum = nums[i];
             }
 
